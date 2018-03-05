@@ -257,9 +257,11 @@ class ShotgunShotUpdater(ShotgunHieroObjectBase, FnShotExporter.ShotTask, Collat
         self.app.log_debug("Updating info for %s %s: %s" % (shot_type, shot_id, str(sg_shot)))
         self.app.tank.shotgun.update(shot_type, shot_id, sg_shot)
 
+        # Since we do not let the user create the shot, we don't need to create the system files
+
         # create the directory structure
-        self.app.log_debug("Creating file system structure for %s %s..." % (shot_type, shot_id))
-        self.app.tank.create_filesystem_structure(shot_type, [shot_id])
+        # self.app.log_debug("Creating file system structure for %s %s..." % (shot_type, shot_id))
+        # self.app.tank.create_filesystem_structure(shot_type, [shot_id])
 
         # return without error
         self.app.log_info("Updated %s %s" % (shot_type, self.shotName()))

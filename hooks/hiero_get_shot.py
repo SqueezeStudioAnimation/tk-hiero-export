@@ -21,12 +21,17 @@ class HieroGetShot(Hook):
             ["code", "is", item.name()],
         ]
         fields = kwargs.get("fields", [])
-        fields.append("sg_episode")
+        # fields.append("sg_episode")
         shots = sg.find("Shot", filt, fields=fields)
         if len(shots) > 1:
             # can not handle multiple shots with the same name
             raise StandardError("Multiple shots named '%s' found", item.name())
         if len(shots) == 0:
+            # We do not want the user to create new shots in shotgun
+            raise RuntimeError("The current shot {0} was not found in Shotgun.\n"
+                               "Make sure you have to name your trackItem with the same shot name in Shotgun".
+                               format(item.name()))
+
             # create shot in shotgun
             shot_data = {
                 "code": item.name(),
