@@ -45,6 +45,10 @@ class ShotgunShotUpdater(ShotgunHieroObjectBase, FnShotExporter.ShotTask, Collat
         source_in = int(self._item.sourceIn())
         source_out = int(self._item.sourceOut())
 
+        # We want to start each item (shot) at the startFrame decided
+        source_out = source_out - source_in
+        source_in = 0
+
         if self._has_nuke_backend() and source_in < in_handle:
             # newer versions of the hiero/nukestudio. no black frames will be
             # written to disk for the head when not enough source for the in
