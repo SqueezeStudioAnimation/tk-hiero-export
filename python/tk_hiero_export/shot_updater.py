@@ -42,11 +42,12 @@ class ShotgunShotUpdater(ShotgunHieroObjectBase, FnShotExporter.ShotTask, Collat
         # these are the source in/out frames. we'll use them to determine if we
         # have enough frames to account for the handles. versions of
         # hiero/nukestudio handle missing handles differently
-        source_in = int(self._item.sourceIn())
-        source_out = int(self._item.sourceOut())
+        source_in = self._item.sourceIn()
+        source_out = self._item.sourceOut()
 
         # We want to start each item (shot) at the startFrame decided
-        source_out = source_out - source_in
+        # Since the values may be in float, we want to round it the nearest integers
+        source_out = int(round(source_out - source_in))
         source_in = 0
 
         if self._has_nuke_backend() and source_in < in_handle:
