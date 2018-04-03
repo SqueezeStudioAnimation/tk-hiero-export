@@ -220,11 +220,12 @@ class ShotgunShotUpdater(ShotgunHieroObjectBase, FnShotExporter.ShotTask, Collat
                 # the cut in/out should already be correct here. just log
                 self.app.log_debug("Exporting... clip length.")
 
+        # We don't need head_in and tail_out to be modified in shotgun
         # update the frame range
-        sg_shot["sg_head_in"] = head_in
+        # sg_shot["sg_head_in"] = head_in
         sg_shot["sg_cut_in"] = cut_in
         sg_shot["sg_cut_out"] = cut_out
-        sg_shot["sg_tail_out"] = tail_out
+        # sg_shot["sg_tail_out"] = tail_out
         sg_shot["sg_cut_duration"] = cut_duration
         sg_shot["sg_working_duration"] = working_duration
 
