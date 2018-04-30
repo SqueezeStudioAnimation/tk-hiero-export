@@ -138,9 +138,10 @@ class ShotgunShotUpdater(ShotgunHieroObjectBase, FnShotExporter.ShotTask, Collat
         del sg_shot['type']
 
         # The cut order may have been set by the processor. Otherwise keep old behavior.
-        cut_order = self.app.shot_count + 1
-        if self._cut_order:
-            cut_order = self._cut_order
+        # We will determine the cut order from nukeStudio using a base10 format
+        cut_order = (self.app.shot_count + 1) * 10
+        # if self._cut_order:
+        #     cut_order = self._cut_order
 
         # update the frame range
         sg_shot["sg_cut_order"] = cut_order
