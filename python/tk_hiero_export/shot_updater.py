@@ -29,7 +29,6 @@ class ShotgunShotUpdater(ShotgunHieroObjectBase, FnShotExporter.ShotTask, Collat
 
         The values correspond to the exported version created on disk.
         """
-
         (head_in, tail_out) = self.collatedOutputRange(clampToSource=False)
 
         handles = self._cutHandles if self._cutHandles is not None else 0
@@ -49,6 +48,10 @@ class ShotgunShotUpdater(ShotgunHieroObjectBase, FnShotExporter.ShotTask, Collat
         # Since the values may be in float, we want to round it the nearest integers
         source_out = int(round(source_out - source_in))
         source_in = 0
+
+        # We may slow the speed of the clip in the timeline
+        playback_speed = self._item.playbackSpeed()
+        source_out = int(round(source_out / playback_speed))
 
         if self._has_nuke_backend() and source_in < in_handle:
             # newer versions of the hiero/nukestudio. no black frames will be
